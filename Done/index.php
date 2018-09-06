@@ -1,4 +1,4 @@
-<html>
+<html xmlns:http="http://www.w3.org/1999/xhtml">
 <head>
     <title>Registreren</title>
 
@@ -12,7 +12,15 @@
 <p>Woonplaats: <?php echo getData("Woonplaats", $_GET['ID'])?></p>
 <p>Gebruikersnaam: <?php echo getData("Gebruikersnaam", $_GET['ID'])?></p>
 <p>Wachtwoord: <?php echo getData("Wachtwoord", $_GET['ID'])?></p>
+<br>
+<p><br>Klik hier om in te loggen.</p>
+<button type="button" id="myBtn" onClick="document.location.href="http://localhost/School/Opdracht1/Login/index.php";" >Inloggen</button>
 </body>
+<script>
+    var btn = document.getElementById('myBtn');
+    btn.addEventListener('click', function() {
+        document.location.href = 'http://localhost/School/Opdracht1/Login/index.php';
+    });</script>
 </html>
 
 <?php
@@ -33,71 +41,23 @@ function getData($type, $id) {
 
     if ($id != null) {
 
-        if ($type == "Voornaam") {
-            $res = $conn->query("SELECT * FROM Personen WHERE ID='" . $id . "'");
-            if (mysqli_num_rows($res) > 0) {
+        if (!($type == "Voornaam" OR
+            $type == "Achternaam" OR
+            $type == "Straat" OR
+            $type == "Woonplaats" OR
+            $type == "ID" OR
+            $type == "Wachtwoord")) return;
 
-                while ($row = mysqli_fetch_assoc($res)) {
-                    return $row["Voornaam"];
-                }
+        $res = $conn->query("SELECT " . $type . " FROM Personen WHERE ID='" . $id . "'");
+        if (mysqli_num_rows($res) > 0) {
 
-            } else return "NO RESULTS FOUND";
-        }
+            while ($row = mysqli_fetch_assoc($res)) {
+                return $row[$type];
+            }
 
-        if ($type == "Achternaam") {
-            $res = $conn->query("SELECT * FROM Personen WHERE ID='" . $id . "'");
-            if (mysqli_num_rows($res) > 0) {
 
-                while ($row = mysqli_fetch_assoc($res)) {
-                    return $row["Achternaam"];
-                }
 
-            } else return "NO RESULTS FOUND";
-        }
-
-        if ($type == "Straat") {
-            $res = $conn->query("SELECT * FROM Personen WHERE ID='" . $id . "'");
-            if (mysqli_num_rows($res) > 0) {
-
-                while ($row = mysqli_fetch_assoc($res)) {
-                    return $row["Straat"];
-                }
-
-            } else return "NO RESULTS FOUND";
-        }
-
-        if ($type == "Woonplaats") {
-            $res = $conn->query("SELECT * FROM Personen WHERE ID='" . $id . "'");
-            if (mysqli_num_rows($res) > 0) {
-
-                while ($row = mysqli_fetch_assoc($res)) {
-                    return $row["Woonplaats"];
-                }
-
-            } else return "NO RESULTS FOUND";
-        }
-
-        if ($type == "Gebruikersnaam") {
-            $res = $conn->query("SELECT * FROM Personen WHERE ID='" . $id . "'");
-            if (mysqli_num_rows($res) > 0) {
-
-                while ($row = mysqli_fetch_assoc($res)) {
-                    return $row["Gebruikersnaam"];
-                }
-
-            } else return "NO RESULTS FOUND";
-        }
-
-        if ($type == "Wachtwoord") {
-            $res = $conn->query("SELECT * FROM Personen WHERE ID='" . $id . "'");
-            if (mysqli_num_rows($res) > 0) {
-
-                while ($row = mysqli_fetch_assoc($res)) {
-                    return $row["Wachtwoord"];
-                }
-
-            } else return "NO RESULTS FOUND";
-        }
+        } else return "NO RESULTS FOUND";
 
     } else return "ID CANNOT BE NULL";
 

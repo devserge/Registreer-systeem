@@ -4,17 +4,36 @@ if ($_POST['voornaam'] == null OR $_POST['achternaam'] == null OR $_POST['straat
     echo "SOMETHING IS NULL!";
     return;
 }
+$oldgebruikersnaam = $_GET['user'];
 
 $voornaam = $_POST['voornaam'];
 $achternaam = $_POST['achternaam'];
 $straat = $_POST['straat'];
 $woonplaats = $_POST['woonplaats'];
-$id = calculateId();
 $gebruikersnaam = $_POST['gebruikersnaam'];
+$id = getDataFromUser("Id", $oldgebruikersnaam);
 $wachtwoord = $_POST['wachtwoord'];
 
 
+removeUser($id);
 postData($voornaam, $achternaam, $straat, $woonplaats, $id, $gebruikersnaam, $wachtwoord);
+
+function removeUser($id) {
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "password";
+    $dbname = "Schooldb";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $remove = "DELETE FROM `Personen` WHERE `ID`= '" . $id . "'";
+    $conn->query($remove);
+    $conn->close();
+
+}
 
 function postData($voornaam, $achternaam, $straat, $woonplaats, $id, $gebruikersnaam, $wachtwoord) {
 
@@ -130,6 +149,43 @@ function calculateId() {
         }
     }
     return $key_string;
+
+}
+
+
+function getDataFromUser($type, $gebruikersnaam) {
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "password";
+    $dbname = "Schooldb";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    if ($gebruikersnaam != null) {
+
+        if (!($type == "Voornaam" OR
+            $type == "Achternaam" OR
+            $type == "Straat" OR
+            $type == "Woonplaats" OR
+            $type == "ID" OR
+            $type == "Wachtwoord")) return;
+
+        $res = $conn->query("SELECT " . $type . " FROM Personen WHERE Gebruikersnaam='" . $gebruikersnaam . "'");
+        if (mysqli_num_rows($res) > 0) {
+
+            while ($row = mysqli_fetch_assoc($res)) {
+                return $row[$type];
+            }
+
+        } else return "NO RESULTS FOUND";
+
+    } else return "ID CANNOT BE NULL";
+
+
 
 }
 
