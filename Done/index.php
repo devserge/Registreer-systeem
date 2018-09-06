@@ -45,7 +45,7 @@ function getData($type, $id) {
             $type == "Achternaam" OR
             $type == "Straat" OR
             $type == "Woonplaats" OR
-            $type == "ID" OR
+            $type == "Gebruikersnaam" OR
             $type == "Wachtwoord")) return;
 
         $res = $conn->query("SELECT " . $type . " FROM Personen WHERE ID='" . $id . "'");

@@ -48,33 +48,6 @@ function postData($voornaam, $achternaam, $straat, $woonplaats, $id, $gebruikers
     header("Location: http://localhost/School/Opdracht1/Done/?ID=" . $id);
 }
 
-function getUUID($gebruikersnaam) {
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "password";
-    $dbname = "Schooldb";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    if ($gebruikersnaam != null) {
-        $res = $conn->query("SELECT ID FROM Personen WHERE gebruikersnaam='" . $gebruikersnaam . "'");
-        if (mysqli_num_rows($res) > 0) {
-
-            while ($row = mysqli_fetch_assoc($res)) {
-                return $row["ID"];
-            }
-
-        } else return "NO RESULTS FOUND";
-    } else return "ID CANNOT BE NULL";
-
-
-
-}
-
 function getData($type, $id) {
 
     $servername = "localhost";
@@ -93,7 +66,7 @@ function getData($type, $id) {
             $type == "Achternaam" OR
             $type == "Straat" OR
             $type == "Woonplaats" OR
-            $type == "ID" OR
+            $type == "Gebruikersnaam" OR
             $type == "Wachtwoord")) return;
 
         $res = $conn->query("SELECT " . $type . " FROM Personen WHERE ID='" . $id . "'");
