@@ -89,7 +89,7 @@ function isDataValid($gebruikersnaam, $wachtwoord) {
 }
 
 function calculateId() {
-    $tokens = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $tokens = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
     $num_segments = 6;
     $key_string = '';
     for ($i = 0; $i < $num_segments; $i++) {
