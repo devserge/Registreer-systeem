@@ -84,10 +84,6 @@ function getData($type, $id) {
 
 }
 
-function isDataValid($gebruikersnaam, $wachtwoord) {
-
-}
-
 function calculateId() {
     $tokens = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
     $num_segments = 6;
