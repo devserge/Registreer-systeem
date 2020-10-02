@@ -6,12 +6,12 @@
 </head>
 <body>
 <h3>U bent succesvol ingeschreven!</h3>
-<p>Voornaam: <?php echo getData("Voornaam", $_GET['ID'])?></p>
-<p>Achternaam: <?php echo getData("Achternaam", $_GET['ID'])?></p>
-<p>Straat: <?php echo getData("Straat", $_GET['ID'])?></p>
-<p>Woonplaats: <?php echo getData("Woonplaats", $_GET['ID'])?></p>
-<p>Gebruikersnaam: <?php echo getData("Gebruikersnaam", $_GET['ID'])?></p>
-<p>Wachtwoord: <?php echo getData("Wachtwoord", $_GET['ID'])?></p>
+<p>Voornaam: <?php= getData("Voornaam", $_GET['ID'])?></p>
+<p>Achternaam: <?php= getData("Achternaam", $_GET['ID'])?></p>
+<p>Straat: <?php= getData("Straat", $_GET['ID'])?></p>
+<p>Woonplaats: <?php getData("Woonplaats", $_GET['ID'])?></p>
+<p>Gebruikersnaam: <?php= getData("Gebruikersnaam", $_GET['ID'])?></p>
+<p>Wachtwoord: <?php= getData("Wachtwoord", $_GET['ID'])?></p>
 <br>
 <p><br>Klik hier om in te loggen.</p>
 <button type="button" id="myBtn" onClick="document.location.href="http://localhost/School/Opdracht1/Login/index.php";" >Inloggen</button>
